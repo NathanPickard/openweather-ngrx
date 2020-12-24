@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "openweather-ngrx"
+  "defaultProject": "openweather-ngrx",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
