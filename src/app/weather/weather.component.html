@@ -1,1 +1,33 @@
-<p>weather works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>NgRx Weather</span>
+    <mat-form-field>
+      <input matInput [matAutocomplete]="auto" [formControl]="citiesCtrl" placeholder="Select Location">
+      <button mat-button *ngIf="citiesCtrl.value" matSuffix mat-icon-button aria-label="Clear"
+        (click)="citiesCtrl.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
+        <mat-option *ngFor="let city of filteredCities | async" [value]="city.combinedName">
+          <span>{{ city.combinedName }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div>
+  <mat-grid-list cols="3" rowHeight="29em">
+    <mat-grid-tile *ngFor="let card of cards | async">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            {{ card.title }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ng-container *ngxComponentOutlet="card.component; context: { weatherData: weatherData }"></ng-container>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

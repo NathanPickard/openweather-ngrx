@@ -20,7 +20,7 @@ export class WeatherService {
   constructor(private httpClient: HttpClient) { }
 
   getWeather(locationData: LocationData): Observable<any> {
-    return this.getNoaaMetadata(locationData.longitude, locationData.longitude)
+    return this.getNoaaMetadata(locationData.latitude, locationData.longitude)
       .pipe(mergeMap(metadata => this.getNoaaWeeklyForecast(metadata.properties.forecast)
         .pipe(mergeMap(weeklyForecast => this.getNoaaHourlyForecast(metadata.properties.forecastHourly)
           .pipe(mergeMap(hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(locationData.latitude, locationData.longitude)
@@ -118,7 +118,7 @@ export class WeatherService {
 
   getNoaaMetadata(lat: string, long: string): Observable<any> {
     const NOAA_METADATA_ENDPOINT = environment.NOAA_METADATA_ENDPOINT;
-    const metadataURL: string = this.getNoaaMetadata + lat + ',' + long;
+    const metadataURL: string = NOAA_METADATA_ENDPOINT + lat + ',' + long;
     return this.httpClient.get(metadataURL)
       .pipe(
         catchError(this.handleError)
