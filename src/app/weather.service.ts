@@ -23,9 +23,9 @@ export class WeatherService {
     return this.getNoaaMetadata(locationData.longitude, locationData.longitude)
       .pipe(mergeMap(metadata => this.getNoaaWeeklyForecast(metadata.properties.forecast)
         .pipe(mergeMap(weeklyForecast => this.getNoaaHourlyForecast(metadata.properties.forecastHourly)
-          .pipe(mergeMap(hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(locationData.latitiude, locationData.longitude)
+          .pipe(mergeMap(hourlyForecast => this.getCurrentWeatherOpenWeatherMapAPI(locationData.latitude, locationData.longitude)
             .pipe(map((currentWeather) => {
-              this.weatherData.currentConditions.latitude = locationData.latitiude;
+              this.weatherData.currentConditions.latitude = locationData.latitude;
               this.weatherData.currentConditions.longitude = locationData.longitude;
               this.weatherData.currentConditions.city = metadata.properties.relativeLocation.properties.city;
               this.weatherData.currentConditions.state = metadata.properties.relativeLocation.properties.state;
@@ -48,7 +48,6 @@ export class WeatherService {
               this.weatherData.weatherDate = new Date();
 
               return this.weatherData;
-
             }))
           ))
         ))
@@ -56,7 +55,7 @@ export class WeatherService {
   }
 
   getWeatherLocalStorage(): Observable<WeatherData> {
-    const localStorageWeatherData: WeatherData = JSON.parse(window.localStorage.getItem('weather'));
+    const localStorageWeatherData: WeatherData = JSON.parse(window.localStorage.getItem('weather') || '{}');
     return of(localStorageWeatherData);
   }
 
@@ -72,7 +71,7 @@ export class WeatherService {
   }
 
   getWindDirectionFromDegreeAngle(degreeAngle: number): string {
-    let windDirection: string;
+    let windDirection: string = '';
     if (degreeAngle >= 0 && degreeAngle < 90) {
       windDirection = 'NE';
     } else if (degreeAngle >= 90 && degreeAngle < 180) {
@@ -126,13 +125,13 @@ export class WeatherService {
       );
   }
 
-  getNoaaHourlyForecast(hourlyURL): Observable<any> {
+  getNoaaHourlyForecast(hourlyURL: string): Observable<any> {
     return this.httpClient.get(hourlyURL)
       .pipe(catchError(this.handleError)
       );
   }
 
-  getNoaaWeeklyForecast(forecastURL): Observable<any> {
+  getNoaaWeeklyForecast(forecastURL: string): Observable<any> {
     return this.httpClient.get(forecastURL)
       .pipe(
         catchError(this.handleError)

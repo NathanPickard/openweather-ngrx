@@ -1,4 +1,4 @@
 export class LocationData {
   longitude = '';
-  latitiude = '';
+  latitude = '';
 }
