@@ -13,6 +13,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { WeatherComponent } from './weather/weather.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import { CurrentConditionsComponent } from './cards/current-conditions/current-conditions.component';
+import { WeatherDiscussionComponent } from './cards/weather-discussion/weather-discussion.component';
+import { WeeklyForecastComponent } from './cards/weekly-forecast/weekly-forecast.component';
+import { HourlyForecastComponent } from './cards/hourly-forecast/hourly-forecast.component';
+import { AboutMobileComponent } from './cards/about-mobile/about-mobile.component';
+import { AboutDesktopComponent } from './cards/about-desktop/about-desktop.component';
+
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './reducers';
@@ -23,7 +30,13 @@ import { NgxdModule } from '@ngxd/core';
   declarations: [
     AppComponent,
     WeatherComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CurrentConditionsComponent,
+    WeatherDiscussionComponent,
+    WeeklyForecastComponent,
+    HourlyForecastComponent,
+    AboutMobileComponent,
+    AboutDesktopComponent
   ],
   imports: [
     BrowserModule,

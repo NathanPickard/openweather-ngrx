@@ -65,7 +65,7 @@ export class WeatherComponent implements OnInit {
         title: 'Hourly Forecast',
         cols: 1,
         rows: 1,
-        component: WeeklyForecastComponent
+        component: HourlyForecastComponent
       },
       {
         title: 'Weather Discussion',
