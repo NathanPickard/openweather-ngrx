@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { WeatherData } from 'src/app/models/weather-data/weather-data';
 
 @Component({
   selector: 'app-hourly-forecast',
@@ -6,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hourly-forecast.component.scss']
 })
 export class HourlyForecastComponent implements OnInit {
+
+  data: WeatherData | undefined;
+  displayedColumns: string[] = ['Time', 'Temp', 'Wind', 'Condition'];
+
+  @Input()
+  set weatherData(weatherData: WeatherData) {
+    this.data = weatherData || null;
+  }
 
   constructor() { }
 
