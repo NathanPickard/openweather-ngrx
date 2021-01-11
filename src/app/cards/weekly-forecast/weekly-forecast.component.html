@@ -1,1 +1,16 @@
-<p>weekly-forecast works!</p>
+<div>
+  <table *ngIf="data != undefined; else elseBlock">
+    <tbody>
+      <td *ngFor="let weekday of data.weeklyForecast">
+        <tr>{{ weekday.name }}</tr>
+        <tr>{{ weekday.temp }}</tr>
+        <tr>{{ weekday.windSpeed }}</tr>
+        <tr><img src={{weekday.icon}}></tr>
+      </td>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>

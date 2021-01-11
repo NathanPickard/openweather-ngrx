@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { WeatherData } from '../../models/weather-data/weather-data';
 
 @Component({
   selector: 'app-weekly-forecast',
@@ -6,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weekly-forecast.component.scss']
 })
 export class WeeklyForecastComponent implements OnInit {
+
+  data: WeatherData | undefined;
+
+  @Input()
+  set weatherData(weatherData: WeatherData) {
+    this.data = weatherData || null;
+  }
 
   constructor() { }
 
