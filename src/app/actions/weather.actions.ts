@@ -1,15 +1,22 @@
-import { createAction, props } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
+import { WeatherData } from '../models/weather-data/weather-data';
 
-export const loadWeathers = createAction(
-  '[Weather] Load Weathers'
-);
+export enum WeatherActionTypes {
+  LoadWeather = '[Home Page] Load Weather'
+}
 
-export const loadWeathersSuccess = createAction(
-  '[Weather] Load Weathers Success',
-  props<{ data: any }>()
-);
+export class WeatherAction implements Action {
+  type: string | undefined;
+  payload: {
+    weatherData: WeatherData;
+  } | undefined
+};
 
-export const loadWeathersFailure = createAction(
-  '[Weather] Load Weathers Failure',
-  props<{ error: any }>()
-);
+export class LoadWeather implements Action {
+  readonly type = WeatherActionTypes.LoadWeather;
+
+  constructor(readonly payload: { weatherData: WeatherData }) { }
+}
+
+
+export type WeatherActions = LoadWeather;
