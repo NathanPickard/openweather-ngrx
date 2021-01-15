@@ -25,6 +25,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './reducers';
 
 import { NgxdModule } from '@ngxd/core';
+import { EffectsModule } from '@ngrx/effects';
+import { WeatherEffects } from './effects/weather.effects';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { NgxdModule } from '@ngxd/core';
     ReactiveFormsModule,
     NgxdModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forFeature([WeatherEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
