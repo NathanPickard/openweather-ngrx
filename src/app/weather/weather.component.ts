@@ -19,6 +19,11 @@ import { WeatherService } from '../weather.service';
 
 import { Observable } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
+import { LoadLocations } from '../actions/location.actions';
+
+import { Store } from '@ngrx/store';
+import { AppState, selectError } from '../reducers';
+import { LoadWeather } from '../actions/weather.actions';
 
 
 @Component({
@@ -31,7 +36,7 @@ export class WeatherComponent implements OnInit {
   weatherData: WeatherData | null = new WeatherData;
   lat: string = '';
   long: string = '';
-  
+
   cardsDesktop: any = [];
   cardsMobile: any = [];
   displayValues = false;
@@ -53,7 +58,7 @@ export class WeatherComponent implements OnInit {
       })
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService) {
+  constructor(private breakpointObserver: BreakpointObserver, public weatherService: WeatherService, private store: Store<AppState>) {
     this.cardsDesktop = [
       {
         title: 'Current Conditions',
@@ -174,21 +179,28 @@ export class WeatherComponent implements OnInit {
       }
     }
 
-    this.weatherService.getWeather(this.locationData)
-      .pipe(take(1))
-      .subscribe(weather => this.weatherData = weather);
+    // this.weatherService.getWeather(this.locationData)
+    //   .pipe(take(1))
+    //   .subscribe(weather => this.weatherData = weather);
+    this.store.dispatch(new LoadLocations({ locationData: this.locationData }));
   }
 
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
     for (const city of this.cities) {
       if (city.combinedName === event.option.value) {
-        this.locationData.latitude = city.latitude;
-        this.locationData.longitude = city.longitude;
-        this.weatherData = null;
+        // this.locationData.latitude = city.latitude;
+        // this.locationData.longitude = city.longitude;
+        const latitude = parseFloat(city.latitude);
+        const longitude = parseFloat(city.logitude);
+        this.locationData.latitude = latitude.toFixed(4).toString();
+        this.locationData.longitude = longitude.toFixed(4).toString();
+        this.store.dispatch(new LoadWeather({ weatherData: null }));
+        this.store.dispatch(new LoadLocations({ locationData: this.locationData }));
+        // this.weatherData = null;
         // this.weatherData = undefined;
-        this.weatherService.getWeather(this.locationData)
-          .pipe(take(1))
-          .subscribe(weather => this.weatherData = weather);
+        // this.weatherService.getWeather(this.locationData)
+        // .pipe(take(1))
+        // .subscribe(weather => this.weatherData = weather);
         break;
       }
     }
