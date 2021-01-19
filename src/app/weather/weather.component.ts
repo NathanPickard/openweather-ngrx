@@ -17,11 +17,11 @@ import { AboutMobileComponent } from '../cards/about-mobile/about-mobile.compone
 
 import { WeatherService } from '../weather.service';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 import { LoadLocations } from '../actions/location.actions';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState, selectError } from '../reducers';
 import { LoadWeather } from '../actions/weather.actions';
 
@@ -45,7 +45,9 @@ export class WeatherComponent implements OnInit {
   citiesCtrl = new FormControl();
   filteredCities: Observable<City[]>;
   cities: any = [];
-  selectedLocations = '';
+  private unsubscribeError: Subject<void> = new Subject<void>();
+  error$: Observable<any>;
+  // selectedLocations = '';
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -160,6 +162,7 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.error$ = this.store.pipe(select(selectError));
     try {
       navigator.geolocation.getCurrentPosition((position) => {
         this.savePosition(position);
