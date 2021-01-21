@@ -1,10 +1,11 @@
 <div>
-  <table *ngIf="data != undefined; else elseBlock">
+  <!-- <table *ngIf="data != undefined; else elseBlock"> -->
+  <table *ngIf="data$ | async as data; else elseBlock">
     <tbody>
       <td *ngFor="let weekday of data.weeklyForecast">
         <tr>{{ weekday.name }}</tr>
-        <tr>{{ weekday.temp }}</tr>
-        <tr>{{ weekday.windSpeed }}</tr>
+        <tr>{{ weekday.temp }}°</tr>
+        <tr>{{ weekday.windSpeed }} {{ weekday.windDirection }}</tr>
         <tr><img src={{weekday.icon}}></tr>
       </td>
     </tbody>

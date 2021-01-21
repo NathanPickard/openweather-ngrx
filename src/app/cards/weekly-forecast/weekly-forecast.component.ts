@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+
+import { AppState, selectWeather } from '../../reducers';
 import { WeatherData } from '../../models/weather-data/weather-data';
+
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-weekly-forecast',
@@ -8,16 +13,19 @@ import { WeatherData } from '../../models/weather-data/weather-data';
 })
 export class WeeklyForecastComponent implements OnInit {
 
-  data: WeatherData | undefined;
+  // @Input()
+  // set weatherData(weatherData: WeatherData) {
+  //   this.data = weatherData || null;
+  // }
 
-  @Input()
-  set weatherData(weatherData: WeatherData) {
-    this.data = weatherData || null;
-  }
+  // data: WeatherData | undefined;
+  data$: Observable<WeatherData> | undefined;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
+
 
   ngOnInit(): void {
+    this.data$ = this.store.pipe(select(selectWeather));
   }
 
 }
