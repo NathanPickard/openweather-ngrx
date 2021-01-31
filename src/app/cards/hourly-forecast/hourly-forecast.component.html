@@ -1,4 +1,5 @@
-<div *ngIf="data != undefined; else elseBlock">
+<!-- <div *ngIf="data != undefined; else elseBlock"> -->
+<div *ngIf="data$ | async as data; else elseBlock">
   <table mat-table [dataSource]="data.hourlyForecast">
     <ng-container matColumnDef="Time">
       <th mat-header-cell *matHeaderCellDef><span>Time</span></th>
