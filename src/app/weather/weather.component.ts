@@ -181,7 +181,6 @@ export class WeatherComponent implements OnInit {
         city.longitude = this.locationData.longitude;
       }
     }
-
     // this.weatherService.getWeather(this.locationData)
     //   .pipe(take(1))
     //   .subscribe(weather => this.weatherData = weather);
