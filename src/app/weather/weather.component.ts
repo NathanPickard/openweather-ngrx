@@ -46,7 +46,7 @@ export class WeatherComponent implements OnInit {
   filteredCities: Observable<City[]>;
   cities: any = [];
   private unsubscribeError: Subject<void> = new Subject<void>();
-  error$: Observable<any>;
+  error$!: Observable<any>;
   // selectedLocations = '';
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -196,7 +196,7 @@ export class WeatherComponent implements OnInit {
         const longitude = parseFloat(city.logitude);
         this.locationData.latitude = latitude.toFixed(4).toString();
         this.locationData.longitude = longitude.toFixed(4).toString();
-        this.store.dispatch(new LoadWeather({ weatherData: null }));
+        this.store.dispatch(new LoadWeather({ weatherData: new WeatherData }));
         this.store.dispatch(new LoadLocations({ locationData: this.locationData }));
         // this.weatherData = null;
         // this.weatherData = undefined;

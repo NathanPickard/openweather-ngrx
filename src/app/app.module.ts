@@ -27,7 +27,7 @@ import { reducers, metaReducers } from './reducers';
 import { NgxdModule } from '@ngxd/core';
 import { EffectsModule } from '@ngrx/effects';
 import { WeatherEffects } from './effects/weather.effects';
-import { RadarDesktopComponent } from './radar-desktop/radar-desktop.component';
+import { RadarDesktopComponent } from './cards/radar-desktop/radar-desktop.component';
 
 @NgModule({
   declarations: [

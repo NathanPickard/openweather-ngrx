@@ -7,7 +7,7 @@ export enum LocationActionTypes {
 }
 
 export class LocationAction implements Action {
-  type: string;
+  type: any;
   payload: {
     locationData: LocationData;
     error: string;

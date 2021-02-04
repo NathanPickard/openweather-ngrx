@@ -6,7 +6,7 @@ export enum WeatherActionTypes {
 }
 
 export class WeatherAction implements Action {
-  type: string | undefined;
+  type: any;
   payload: {
     weatherData: WeatherData;
   } | undefined
